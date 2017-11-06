@@ -35,21 +35,27 @@
 		<el-row type="flex">
 			<el-col :span="12" :offset="6">
 				<el-upload class="upload" ref="upload" name="input" 
-					action="/api/image/preview"
+					action="/api/image/filter"
 					:show-file-list="false"
 					:data="uploadParam"
 					:before-upload="handleBeforeUpload"
 					:on-success="handleSuccess"
 					:file-list="fileList">
 					<el-button size="small" type="primary">点击上传</el-button>
-					<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+					<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过 2 M!</div>
 				</el-upload>
+			</el-col>
+		</el-row>
+		<el-row type="flex" v-show="loading">
+			<el-col :span="24">
+				<div>
+					<img src="../../images/loading.svg">
+				</div>
 			</el-col>
 		</el-row>
 		<el-row type="flex" class="result_row" v-if="showResult">
 			<el-col :span="24">
-				<div v-if="loading">loading</div>
-				<image-flow v-if="showResult" :images="images"></image-flow>
+				<image-flow v-if="showResult" :images="images" :width="this.$el.clientWidth"></image-flow>
 			</el-col>
 		</el-row>
 	</div>
@@ -57,6 +63,7 @@
 
 <script>
     export default {
+    	name: 'imagefiltertool',
     	data() {
 			return {
 				filter: 'all',
@@ -204,7 +211,6 @@
 	    		} else {
 	    			this.showParam = false;
 	    		}
-	    		console.log(this.params);
 	    	},
 			handleBeforeUpload(file) {
 				if (['image/jpeg', 'image/png'].indexOf(file.type) < 0) {
@@ -215,13 +221,12 @@
 					this.$message.error('上传图片大小不能超过 2 M！');
 					return false;
 				}
-				console.log('==params===');
-				console.log(this.uploadParam);
+				this.loading = true;
+				this.showResult = false;
 			},
 			handleSuccess(response, file, fileList) {
 				console.log(response);  //TODO
 				if ('job_id' in response) {
-					this.loading = true;
 					this.getResult(response.job_id, true);
 				}
 			},
@@ -242,14 +247,35 @@
 							this.images.push({'title': this.getFilterTitle(i), 'src': response.data.images[i]});
 						}
 					}
-					console.log(this.images);
 					this.showResult = true;
+					this.loading = false;
 				}.bind(this))
 				.catch(function(err){
 					console.log(err);
 				});
 			},
 			getFilterTitle(filter) {
+				switch(filter) {
+					case 'blur': return 'Blur 模糊';
+					case 'contour': return 'Contour 描边';
+					case 'edge_curve': return 'Edge Curve 边缘雕刻';
+					case 'edge_enhance': return 'Edge Enhance 边缘强化';
+					case 'emboss': return 'Emboss 浮雕';
+					case 'emboss_45d': return 'Emboss 45d 45 度浮雕';
+					case 'emboss_asym': return 'Emboss Asymmetric 非对称浮雕';
+					case 'gaussian_blur': return 'Gaussian Blur 高斯模糊';
+					case 'grey': return 'Grey Scale 灰度';
+					case 'hand_drawn': return 'Hand Drawn 手绘';
+					case 'max': return 'Max Filter 最大值滤镜';
+					case 'median': return 'Median Filter 中值滤镜';
+					case 'min': return 'Min Filter 最小值滤镜';
+					case 'mode': return 'Mode Filter 最常值滤镜';
+					case 'sharpen': return 'Sharpen 锐化';
+					case 'sharp_center': return 'Sharp Center 中心锐化';
+					case 'sharp_edge': return 'Sharp Edge 边缘锐化';
+					case 'smooth': return 'Smooth 平滑';
+					case 'unsharp_mask': return 'Unsharp Mask 锐化遮罩';
+				}
 				return filter;
 			}
 	    }
@@ -264,7 +290,7 @@
 		padding: 10px 0 20px 0;
 	}
 	.result_row {
-		padding: 20px 0;
-		min-height: 400px;
+		margin: 30px 0;
+		min-height: 300px;
 	}
 </style>

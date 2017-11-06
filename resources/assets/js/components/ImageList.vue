@@ -14,6 +14,7 @@
 
 <script>
     export default {
+        name: 'imagelist',
         data() {
             return {
                 currImage: 0,

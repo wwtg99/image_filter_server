@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 class ImageController extends Controller
 {
 
-    public function preview(Request $request)
+    public function filter(Request $request)
     {
         $image = $request->file('input');
         if (!$image || !$image->isValid()) {
@@ -23,27 +23,12 @@ class ImageController extends Controller
         if ($param) {
             $param = json_decode($param, true);
         }
+        $thumbnail = $request->input('thumbnail', true);
         $jobId = str_random(32);
         Cache::put($jobId, 1, 180);
-        $imgFilter = new ImageFilter($jobId, $image, $filter, $param, true);
+        $imgFilter = new ImageFilter($jobId, $image, $filter, $param, $thumbnail);
         $imgFilter->run();
         return response()->json(['job_id'=>$jobId]);
-    }
-
-    public function filter(Request $request)
-    {
-        $this->validate($request, [
-            'job_id'=>'required'
-        ]);
-        $jobId = $request->input('job_id');
-        $filter = $request->input('filter', '');
-        if (Cache::has($jobId)) {
-            $imgFilter = new ImageFilter($jobId);
-            $imgFilter->setFilter($filter);
-            $imgFilter->run();
-            return response()->json(['job_id'=>$jobId]);
-        }
-        return response()->json(['error'=>'invalid job_id'], 422);
     }
 
     public function getResult(Request $request)

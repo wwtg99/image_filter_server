@@ -5,13 +5,13 @@
                 <h1>52jing.wang</h1>
                 <p class="descr">图片处理与滤镜工具</p>
                 <p class="descr"><small>仅供娱乐（^o^）</small></p>
-                <p><el-button round>GITHUB</el-button></p>
+                <p><el-button round @click="handleGithub">GITHUB</el-button></p>
             </el-col>
         </el-row>
         <div class="second_block">
             <el-row type="flex">
                 <el-col :span="8" :offset="8" class="text-center">
-                    <button class="input_bt" title="选择一张图片"><i class="el-icon-plus"></i></button>
+                    <button class="input_bt" title="选择一张图片" @click="scrollToUse"><i class="el-icon-plus"></i></button>
                 </el-col>
             </el-row>
             <div class="text-center">
@@ -27,9 +27,6 @@
         </div>
         <div class="third_block">
             <image-filter-tool></image-filter-tool>
-        </div>
-        <div>
-            <image-flow :images="examples"></image-flow>
         </div>
         <div class="forth_block">
             <el-row>
@@ -79,6 +76,28 @@
                 ]
             }
         },
+        methods: {
+            scrollToUse() {
+                let h = document.querySelector('.third_block').offsetTop;
+                let ch = 0;
+                if (document.documentElement && document.documentElement.scrollTop) {
+                    ch = document.documentElement.scrollTop;
+                } else if (document.body) {
+                    ch = document.body.scrollTop;
+                }
+                let t = setInterval(function() {
+                    if (ch < h) {
+                        ch += 10;
+                        window.scrollTo(0, ch);
+                    } else {
+                        clearInterval(t);
+                    }
+                }, 1);
+            },
+            handleGithub() {
+                window.open('https://github.com/wwtg99/image_filter_server');
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }
@@ -86,6 +105,9 @@
 </script>
 
 <style scoped>
+    bodu {
+        transition: all 1s;
+    }
     .main {
         height: 100%;
     }
