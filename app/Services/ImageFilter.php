@@ -49,7 +49,7 @@ class ImageFilter
      * @param array $param
      * @param bool $thumbnail
      */
-    public function __construct($wd, $input = null, $filter = '', array $param = [], $thumbnail = false)
+    public function __construct($wd, $input = null, $filter = '', $param = [], $thumbnail = false)
     {
         $this->wd = $wd;
         if ($input) {

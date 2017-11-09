@@ -5,6 +5,7 @@
 				<h2>立即试用</h2>
 			</el-col>
 		</el-row>
+		<!-- filter select -->
 		<el-row type="flex" class="filter_row">
 			<el-col :span="12" :offset="6">
 				<el-select v-model="filter" filterable placeholder="滤镜" @change="handleFilterChange">
@@ -13,25 +14,30 @@
 				</el-select>
 			</el-col>
 		</el-row>
+		<!-- filter param -->
 		<el-row type="flex" class="param_row" v-if="showParam">
 			<el-col :span="8" :offset="8">
-				<el-form ref="form" :model="params" label-width="80px">
+				<el-form ref="form" label-width="80px">
 					<template v-for="(val, key) in currParams">
-						<el-form-item v-if="val.type == 'select'" :label="val.label">
-							<el-select v-model="params[key]">
+						<el-form-item v-if="key == 'size'" :label="val.label" :key="key">
+							<el-select v-model.number="size">
 								<el-option v-for="i in val.value" :label="i" :value="i" :key="i"></el-option>
 							</el-select>
 						</el-form-item>
-						<el-form-item v-else-if="val.type == 'number'" :label="key" :key="val.label">
-							<el-input-number v-model="params[key]" :max="val.max" :min="val.min" @change="handleChange"></el-input-number>
+						<el-form-item v-else-if="key == 'radius'" :label="val.label" :key="key">
+							<el-input-number v-model.number="radius" :max="val.max" :min="val.min"></el-input-number>
 						</el-form-item>
-						<el-form-item v-else :label="key" :key="val.label">
-							<el-input v-model="params[key]"></el-input>
+						<el-form-item v-else-if="key == 'percent'" :label="val.label" :key="key">
+							<el-input-number v-model.number="percent" :max="val.max" :min="val.min"></el-input-number>
+						</el-form-item>
+						<el-form-item v-else-if="key == 'threshold'" :label="val.label" :key="key">
+							<el-input-number v-model.number="threshold" :max="val.max" :min="val.min"></el-input-number>
 						</el-form-item>
 					</template>
 				</el-form>
 			</el-col>
 		</el-row>
+		<!-- file upload -->
 		<el-row type="flex">
 			<el-col :span="12" :offset="6">
 				<el-upload class="upload" ref="upload" name="input" 
@@ -46,6 +52,7 @@
 				</el-upload>
 			</el-col>
 		</el-row>
+		<!-- loading -->
 		<el-row type="flex" v-show="loading">
 			<el-col :span="24">
 				<div>
@@ -53,6 +60,7 @@
 				</div>
 			</el-col>
 		</el-row>
+		<!-- results -->
 		<el-row type="flex" class="result_row" v-if="showResult">
 			<el-col :span="24">
 				<image-flow v-if="showResult" :images="images" :width="this.$el.clientWidth"></image-flow>
@@ -68,8 +76,11 @@
 			return {
 				filter: 'all',
 				fileList: [],
-				currParams: {},
-				params: {},
+				currParams: {},  //current filter param
+				radius: 2,
+				size: 3,
+				percent: 150,
+				threshold: 3,
 				loading: false,
 				showParam: false,
 				showResult: false,
@@ -111,7 +122,7 @@
 						'label': 'Gaussian Blur 高斯模糊', 
 						'descr': 'gaussian_blur', 
 						'param': {
-							'radius': {'label': '半径', 'value': 2, 'type': 'number', 'max': 1, 'min': 100}
+							'radius': {'label': '半径', 'value': 2, 'type': 'number', 'max': 100, 'min': 1}
 						}
 					},
 					'grey': {
@@ -187,26 +198,14 @@
 	    },
 	    computed: {
 	    	uploadParam() {
-	    		let p = {};
-	    		for (var i in this.params) {
-	    			p[i] = this.params[i];
-	    		}
-	    		return {filter: this.filter, param: JSON.stringify(p)};
-	    	}
+				let p = JSON.stringify({radius: this.radius, size: this.size, percent: this.percent, threshold: this.threshold});
+				return {filter: this.filter, param: p};
+	    	},
 	    },
 	    methods: {
 	    	handleFilterChange(filter) {
 	    		if (filter in this.allFilters && 'param' in this.allFilters[filter]) {
 	    			this.currParams = this.allFilters[filter].param;
-	    			this.params = {};
-	    			for (let i in this.currParams) {
-	    				let p = this.currParams[i];
-	    				if (p.type == 'select') {
-	    					this.params[i] = p.value[0];
-	    				} else {
-	    					this.params[i] = p.value;
-	    				}
-	    			}
 	    			this.showParam = true;
 	    		} else {
 	    			this.showParam = false;
@@ -229,9 +228,6 @@
 				if ('job_id' in response) {
 					this.getResult(response.job_id, true);
 				}
-			},
-			handleChange(val) {
-				console.log(val);
 			},
 			getResult(jobId, thumbnail) {
 				axios.get('/api/image/get_result',{

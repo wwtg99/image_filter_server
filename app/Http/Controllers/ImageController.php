@@ -20,7 +20,7 @@ class ImageController extends Controller
             $filter = '';
         }
         $param = $request->input('param', []);
-        if ($param) {
+        if (!is_array($param)) {
             $param = json_decode($param, true);
         }
         $thumbnail = $request->input('thumbnail', true);
