@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'home', ['title'=>'图片滤镜']);
 
 Route::view('/image/home', 'home', ['title'=>'图片滤镜']);
