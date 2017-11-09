@@ -16,7 +16,7 @@ class ImageFilterListener implements ShouldQueue
     /**
      * @var string
      */
-    protected $cmd = 'python F:\projects\image_filter\image_filter.py';
+    protected $cmd = '';
 
     /**
      * @var int
@@ -30,7 +30,7 @@ class ImageFilterListener implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $this->cmd = config('services.image_filter');
     }
 
     /**

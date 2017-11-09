@@ -35,4 +35,5 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'image_filter' => env('IMAGE_FILTER_PATH'),
 ];
