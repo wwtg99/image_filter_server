@@ -21,7 +21,7 @@
 @show
 <!-- Javascript -->
 @section('js')
-    <script src="/js/app.js"></script>
+    <script src="/image_filter/js/app.js"></script>
 @show
 </body>
 </html>

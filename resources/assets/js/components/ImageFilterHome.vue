@@ -19,7 +19,7 @@
             </div>
             <div class="text-center">
                 <h3>原图</h3>
-                <div><img src="/images/examples/origin.jpg"/></div>
+                <div><img src="/image_filter/images/examples/origin.jpg"/></div>
             </div>
             <div class="image_list">
                 <image-list :images="examples"></image-list>
@@ -32,12 +32,12 @@
             <el-row>
                 <el-col :span="6" :offset="5">
                     <div class="thx_block">
-                        <img src="../../images/python.png">
+                        <img src="/image_filter/images/python.png">
                     </div>
                 </el-col>
                 <el-col :span="6" :offset="2">
                     <div class="thx_block">
-                        <img src="../../images/pillow.png">
+                        <img src="/image_filter/images/pillow.png">
                     </div>
                 </el-col>
             </el-row>
@@ -54,25 +54,25 @@
         data() {
             return {
                 examples: [
-                    {"title": "Blur 模糊", "descr": "使图像变得模糊。", "src": "/images/examples/blur.jpg"},
-                    {"title": "Contour 描边", "descr": "描出图像的边缘。", "src": "/images/examples/contour.jpg"},
-                    {"title": "Edge Curve 边缘雕刻", "descr": "找到图像的边缘，类雕刻风格。", "src": "/images/examples/edge_curve.jpg"},
-                    {"title": "Edge Enhance 边缘强化", "descr": "强化边缘线条。", "src": "/images/examples/edge_enhance.jpg"},
-                    {"title": "Emboss 浮雕", "descr": "类浮雕风格。", "src": "/images/examples/emboss.jpg"},
-                    {"title": "Emboss 45d 45 度浮雕", "descr": "45 度光源彩色浮雕风格。", "src": "/images/examples/emboss_45d.jpg"},
-                    {"title": "Emboss Asymmetric 非对称浮雕", "descr": "非对称浮雕风格。", "src": "/images/examples/emboss_asym.jpg"},
-                    {"title": "Gaussian Blur 高斯模糊", "descr": "高斯模糊，半径 2。", "src": "/images/examples/gaussian_blur.jpg"},
-                    {"title": "Grey Scale 灰度", "descr": "灰度图。", "src": "/images/examples/grey.jpg"},
-                    {"title": "Hand Drawn 手绘", "descr": "类手绘风格。", "src": "/images/examples/hand_drawn.jpg"},
-                    {"title": "Max Filter 最大值滤镜", "descr": "取给定矩形范围内的最大值。", "src": "/images/examples/max.jpg"},
-                    {"title": "Median Filter 中值滤镜", "descr": "取给定矩形范围内的中值。", "src": "/images/examples/median.jpg"},
-                    {"title": "Min Filter 最小值滤镜", "descr": "取给定矩形范围内的最小值。", "src": "/images/examples/min.jpg"},
-                    {"title": "Mode Filter 最常值滤镜", "descr": "取给定矩形范围内的最常出现的值。", "src": "/images/examples/mode.jpg"},
-                    {"title": "Sharpen 锐化", "descr": "锐化图像。", "src": "/images/examples/sharpen.jpg"},
-                    {"title": "Sharp Center 中心锐化", "descr": "中心锐化图像。", "src": "/images/examples/sharp_center.jpg"},
-                    {"title": "Sharp Edge 边缘锐化", "descr": "边缘锐化图像。", "src": "/images/examples/sharp_edge.jpg"},
-                    {"title": "Smooth 平滑", "descr": "平滑图像。", "src": "/images/examples/smooth.jpg"},
-                    {"title": "Unsharp Mask 锐化遮罩", "descr": "半径 2，150%，最小阈值 3，参考 <a href='https://en.wikipedia.org/wiki/Unsharp_masking#Digital_unsharp_masking' target='_blank'>WiKi</a>。", "src": "/images/examples/unsharp_mask.jpg"}
+                    {"title": "Blur 模糊", "descr": "使图像变得模糊。", "src": "/image_filter/images/examples/blur.jpg"},
+                    {"title": "Contour 描边", "descr": "描出图像的边缘。", "src": "/image_filter/images/examples/contour.jpg"},
+                    {"title": "Edge Curve 边缘雕刻", "descr": "找到图像的边缘，类雕刻风格。", "src": "/image_filter/images/examples/edge_curve.jpg"},
+                    {"title": "Edge Enhance 边缘强化", "descr": "强化边缘线条。", "src": "/image_filter/images/examples/edge_enhance.jpg"},
+                    {"title": "Emboss 浮雕", "descr": "类浮雕风格。", "src": "/image_filter/images/examples/emboss.jpg"},
+                    {"title": "Emboss 45d 45 度浮雕", "descr": "45 度光源彩色浮雕风格。", "src": "/image_filter/images/examples/emboss_45d.jpg"},
+                    {"title": "Emboss Asymmetric 非对称浮雕", "descr": "非对称浮雕风格。", "src": "/image_filter/images/examples/emboss_asym.jpg"},
+                    {"title": "Gaussian Blur 高斯模糊", "descr": "高斯模糊，半径 2。", "src": "/image_filter/images/examples/gaussian_blur.jpg"},
+                    {"title": "Grey Scale 灰度", "descr": "灰度图。", "src": "/image_filter/images/examples/grey.jpg"},
+                    {"title": "Hand Drawn 手绘", "descr": "类手绘风格。", "src": "/image_filter/images/examples/hand_drawn.jpg"},
+                    {"title": "Max Filter 最大值滤镜", "descr": "取给定矩形范围内的最大值。", "src": "/image_filter/images/examples/max.jpg"},
+                    {"title": "Median Filter 中值滤镜", "descr": "取给定矩形范围内的中值。", "src": "/image_filter/images/examples/median.jpg"},
+                    {"title": "Min Filter 最小值滤镜", "descr": "取给定矩形范围内的最小值。", "src": "/image_filter/images/examples/min.jpg"},
+                    {"title": "Mode Filter 最常值滤镜", "descr": "取给定矩形范围内的最常出现的值。", "src": "/image_filter/images/examples/mode.jpg"},
+                    {"title": "Sharpen 锐化", "descr": "锐化图像。", "src": "/image_filter/images/examples/sharpen.jpg"},
+                    {"title": "Sharp Center 中心锐化", "descr": "中心锐化图像。", "src": "/image_filter/images/examples/sharp_center.jpg"},
+                    {"title": "Sharp Edge 边缘锐化", "descr": "边缘锐化图像。", "src": "/image_filter/images/examples/sharp_edge.jpg"},
+                    {"title": "Smooth 平滑", "descr": "平滑图像。", "src": "/image_filter/images/examples/smooth.jpg"},
+                    {"title": "Unsharp Mask 锐化遮罩", "descr": "半径 2，150%，最小阈值 3，参考 <a href='https://en.wikipedia.org/wiki/Unsharp_masking#Digital_unsharp_masking' target='_blank'>WiKi</a>。", "src": "/image_filter/images/examples/unsharp_mask.jpg"}
                 ]
             }
         },
@@ -99,13 +99,13 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+//            console.log('Component mounted.')
         }
     }
 </script>
 
 <style scoped>
-    bodu {
+    body {
         transition: all 1s;
     }
     .main {

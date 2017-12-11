@@ -56,7 +56,7 @@
 		<el-row type="flex" v-show="loading">
 			<el-col :span="24">
 				<div>
-					<img src="../../images/loading.svg">
+					<img src="/image_filter/images/loading.svg">
 				</div>
 			</el-col>
 		</el-row>

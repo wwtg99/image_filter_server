@@ -158,7 +158,6 @@ export default {
 	}
 	.imageflow .title {
 		position: absolute;
-		padding: 3px;
 		height: 20px;
 		line-height: 20px;
 		font-size: 14px;
