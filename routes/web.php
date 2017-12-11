@@ -13,4 +13,5 @@
 
 Route::view('/', 'home', ['title'=>'图片滤镜']);
 
+Route::view('/image', 'home', ['title'=>'图片滤镜']);
 Route::view('/image/home', 'home', ['title'=>'图片滤镜']);
